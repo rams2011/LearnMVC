@@ -1,13 +1,15 @@
 ﻿using Learn.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Learn.DataAccess;
 
-public class ApplicationDbContext: DbContext
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
    {
-      
+
    }
 
    public DbSet<Category> Categories { get; set; }
@@ -16,6 +18,7 @@ public class ApplicationDbContext: DbContext
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
+      base.OnModelCreating(modelBuilder);
       modelBuilder.Entity<Category>().HasData(
          new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
          new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
@@ -23,9 +26,9 @@ public class ApplicationDbContext: DbContext
       );
 
       modelBuilder.Entity<Product>().HasData(
-         new Product { Id = 7, Title = "The Hobbit", ISBN = "123456789", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 19.99, Price = 14.99, Price50 = 12.99, Price100 = 9.99, CategoryId =1, ImageURL=""},
-         new Product { Id = 8, Title = "The Lord of the Rings", ISBN = "987654321", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 29.99, Price = 24.99, Price50 = 22.99, Price100 = 19.99, CategoryId =2, ImageURL = "" },
-         new Product { Id = 9, Title = "The Silmarillion", ISBN = "123123123", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 24.99, Price = 19.99, Price50 = 17.99, Price100 = 14.99, CategoryId=3, ImageURL = "" },
+         new Product { Id = 7, Title = "The Hobbit", ISBN = "123456789", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 19.99, Price = 14.99, Price50 = 12.99, Price100 = 9.99, CategoryId = 1, ImageURL = "" },
+         new Product { Id = 8, Title = "The Lord of the Rings", ISBN = "987654321", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 29.99, Price = 24.99, Price50 = 22.99, Price100 = 19.99, CategoryId = 2, ImageURL = "" },
+         new Product { Id = 9, Title = "The Silmarillion", ISBN = "123123123", Author = "J.R.R. Tolkien", Description = "A great book", ListPrice = 24.99, Price = 19.99, Price50 = 17.99, Price100 = 14.99, CategoryId = 3, ImageURL = "" },
          new Product
          {
             Id = 1,
@@ -40,76 +43,76 @@ public class ApplicationDbContext: DbContext
             CategoryId = 1,
             ImageURL = ""
          },
-                new Product
-                {
-                   Id = 2,
-                   Title = "Dark Skies",
-                   Author = "Nancy Hoover",
-                   Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                   ISBN = "CAW777777701",
-                   ListPrice = 40,
-                   Price = 30,
-                   Price50 = 25,
-                   Price100 = 20,
-                   CategoryId = 2,
-                   ImageURL = ""
-                },
-                new Product
-                {
-                   Id = 3,
-                   Title = "Vanish in the Sunset",
-                   Author = "Julian Button",
-                   Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                   ISBN = "RITO5555501",
-                   ListPrice = 55,
-                   Price = 50,
-                   Price50 = 40,
-                   Price100 = 35,
-                   CategoryId = 3,
-                   ImageURL = ""
-                },
-                new Product
-                {
-                   Id = 4,
-                   Title = "Cotton Candy",
-                   Author = "Abby Muscles",
-                   Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                   ISBN = "WS3333333301",
-                   ListPrice = 70,
-                   Price = 65,
-                   Price50 = 60,
-                   Price100 = 55,
-                   CategoryId = 1,
-                   ImageURL = ""
-                },
-                new Product
-                {
-                   Id = 5,
-                   Title = "Rock in the Ocean",
-                   Author = "Ron Parker",
-                   Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                   ISBN = "SOTJ1111111101",
-                   ListPrice = 30,
-                   Price = 27,
-                   Price50 = 25,
-                   Price100 = 20,
-                   CategoryId = 2,
-                   ImageURL = ""
-                },
-                new Product
-                {
-                   Id = 6,
-                   Title = "Leaves and Wonders",
-                   Author = "Laura Phantom",
-                   Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                   ISBN = "FOT000000001",
-                   ListPrice = 25,
-                   Price = 23,
-                   Price50 = 22,
-                   Price100 = 20,
-                   CategoryId = 3,
-                   ImageURL = ""
-                }
+         new Product
+         {
+            Id = 2,
+            Title = "Dark Skies",
+            Author = "Nancy Hoover",
+            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+            ISBN = "CAW777777701",
+            ListPrice = 40,
+            Price = 30,
+            Price50 = 25,
+            Price100 = 20,
+            CategoryId = 2,
+            ImageURL = ""
+         },
+         new Product
+         {
+            Id = 3,
+            Title = "Vanish in the Sunset",
+            Author = "Julian Button",
+            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+            ISBN = "RITO5555501",
+            ListPrice = 55,
+            Price = 50,
+            Price50 = 40,
+            Price100 = 35,
+            CategoryId = 3,
+            ImageURL = ""
+         },
+         new Product
+         {
+            Id = 4,
+            Title = "Cotton Candy",
+            Author = "Abby Muscles",
+            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+            ISBN = "WS3333333301",
+            ListPrice = 70,
+            Price = 65,
+            Price50 = 60,
+            Price100 = 55,
+            CategoryId = 1,
+            ImageURL = ""
+         },
+         new Product
+         {
+            Id = 5,
+            Title = "Rock in the Ocean",
+            Author = "Ron Parker",
+            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+            ISBN = "SOTJ1111111101",
+            ListPrice = 30,
+            Price = 27,
+            Price50 = 25,
+            Price100 = 20,
+            CategoryId = 2,
+            ImageURL = ""
+         },
+         new Product
+         {
+            Id = 6,
+            Title = "Leaves and Wonders",
+            Author = "Laura Phantom",
+            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+            ISBN = "FOT000000001",
+            ListPrice = 25,
+            Price = 23,
+            Price50 = 22,
+            Price100 = 20,
+            CategoryId = 3,
+            ImageURL = ""
+         }
       );
    }
 }
