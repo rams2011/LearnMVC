@@ -13,12 +13,19 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
    }
 
    public DbSet<Category> Categories { get; set; }
-
    public DbSet<Product> Products { get; set; }
+   public DbSet<Company> Companies { get; set; }
+   public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+   public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
       base.OnModelCreating(modelBuilder);
+      modelBuilder.Entity<Company>().HasData(
+         new Company { Id = 1, Name = "Company 1", StreetAddress = "123 Main St", City = "Anytown", State = "CA", PostalCode = "12345", PhoneNumber="1234567879" },
+         new Company { Id = 2, Name = "Company 2", StreetAddress = "456 Elm St", City = "Othertown", State = "NY", PostalCode = "67890", PhoneNumber = "1234567879" },
+         new Company { Id = 3, Name = "Company 3", StreetAddress = "789 Oak St", City = "Sometown", State = "TX", PostalCode = "54321", PhoneNumber = "1234567879" }
+      );
       modelBuilder.Entity<Category>().HasData(
          new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
          new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
